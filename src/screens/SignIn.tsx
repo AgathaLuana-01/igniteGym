@@ -4,6 +4,7 @@ import LogoSvg from '@assets/logo.svg'
 import BackgroundImg from '@assets/background.png'
 
 import { Input } from '@components/Input';
+import { Button } from '@components/Button';
 
 export function SingnIn() {
     return (
@@ -37,6 +38,8 @@ export function SingnIn() {
                     placeholder='Senha'
                     secureTextEntry={true}
                 />
+
+                <Button title='Acessar' />
             </Center>
         </VStack>
     );
