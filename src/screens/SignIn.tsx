@@ -41,6 +41,8 @@ export function SingnIn() {
 
                 <Button title='Acessar' />
             </Center>
+
+            <Button title='Criar Conta' variant={'outline'} />
         </VStack>
     );
 
