@@ -13,6 +13,7 @@ export function Group({ name, ...rest }: Props) {
     bg={'gray.600'}
     rounded={'md'}
     justifyContent={'center'}
+    alignItems={'center'}
     overflow={'hidden'}
     {...rest}
     >
