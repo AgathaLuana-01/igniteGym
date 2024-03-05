@@ -13,6 +13,7 @@ export function AppRoutes() {
       <Screen name="home" component={Home} />
       <Screen name="history" component={History} />
       <Screen name="profile" component={Profile} />
+      <Screen name="exercise" component={Exercise} />
     </Navigator>
   );
 }
