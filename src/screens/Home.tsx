@@ -1,13 +1,16 @@
 import { Group } from "@components/Group";
 import { HomeHeader } from "@components/HomeHeader";
 
-import { VStack, Text } from "native-base";
+import { VStack, Text, HStack } from "native-base";
 
 export function Home() {
   return (
     <VStack flex={1}>
       <HomeHeader />
-      <Group name="costas"/>
+      <HStack>
+        <Group name="costa" />
+        <Group name="ombro" />
+      </HStack>
     </VStack>
   );
 }
