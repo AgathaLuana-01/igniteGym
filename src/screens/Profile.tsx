@@ -8,7 +8,7 @@ import {
   Skeleton,
   Heading,
 } from "native-base";
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from "expo-image-picker";
 
 import { ScreenHeader } from "@components/ScreenHeader";
 import { UserPhoto } from "@components/UserPhoto";
@@ -20,14 +20,19 @@ const PHOTO_SIZE = 33;
 export function Profile() {
   const [photoIsLoading, setPhotoIsLoading] = useState(false);
 
-  async function handleUserPhotoSelect(){
-await ImagePicker.launchImageLibraryAsync();
+  async function handleUserPhotoSelect() {
+    await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 1,
+      aspect: [4, 4],
+      allowsEditing: true,
+    });
   }
 
   return (
     <VStack flex={1}>
       <ScreenHeader title="Perfil" />
-      <ScrollView contentContainerStyle={{paddingBottom: 56}}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 56 }}>
         <Center mt={6} px={10}>
           {photoIsLoading ? (
             <Skeleton
@@ -70,11 +75,13 @@ await ImagePicker.launchImageLibraryAsync();
 
           <Input bg={"gray.600"} placeholder="Senha antiga" secureTextEntry />
           <Input bg={"gray.600"} placeholder="Nova senha" secureTextEntry />
-          <Input bg={"gray.600"} placeholder="Confirme a nova senha" secureTextEntry />
-
-          <Button title="Atualizar"
-          mt={4}
+          <Input
+            bg={"gray.600"}
+            placeholder="Confirme a nova senha"
+            secureTextEntry
           />
+
+          <Button title="Atualizar" mt={4} />
         </VStack>
       </ScrollView>
     </VStack>
