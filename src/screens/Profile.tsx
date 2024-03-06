@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { TouchableOpacity } from "react-native";
 import { ScrollView, Center, VStack, Text, Skeleton } from "native-base";
+
 import { ScreenHeader } from "@components/ScreenHeader";
 import { UserPhoto } from "@components/UserPhoto";
-import { TouchableOpacity } from "react-native";
+import { Input } from "@components/Input";
 
 const PHOTO_SIZE = 33;
 
@@ -39,6 +41,19 @@ export function Profile() {
             Alterar foto
           </Text>
         </TouchableOpacity>
+<Input
+placeholder="Nome"
+bg={'gray.600'}
+/>
+<Input
+placeholder="E-mail"
+value='agathaluana.ads@gmail.com'
+bg={'gray.600'}
+isDisabled
+/>
+
+
+
         </Center>
       </ScrollView>
     </VStack>
