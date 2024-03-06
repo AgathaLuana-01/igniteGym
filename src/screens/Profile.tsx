@@ -30,31 +30,28 @@ export function Profile() {
               size={PHOTO_SIZE}
             />
           )}
-        <TouchableOpacity>
-          <Text
-            color={"green.500"}
-            fontWeight={"bold"}
-            fontSize={"md"}
-            mt={2}
-            mb={8}
-          >
-            Alterar foto
-          </Text>
-        </TouchableOpacity>
-<Input
-placeholder="Nome"
-bg={'gray.600'}
-/>
-<Input
-placeholder="E-mail"
-value='agathaluana.ads@gmail.com'
-bg={'gray.600'}
-isDisabled
-/>
-
-
-
+          <TouchableOpacity>
+            <Text
+              color={"green.500"}
+              fontWeight={"bold"}
+              fontSize={"md"}
+              mt={2}
+              mb={8}
+            >
+              Alterar foto
+            </Text>
+          </TouchableOpacity>
+          <Input placeholder="Nome" bg={"gray.600"} />
+          <Input
+            placeholder="E-mail"
+            value="agathaluana.ads@gmail.com"
+            bg={"gray.600"}
+            isDisabled
+          />
         </Center>
+
+
+        
       </ScrollView>
     </VStack>
   );
