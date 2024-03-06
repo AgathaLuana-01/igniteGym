@@ -1,10 +1,14 @@
-import { VStack, Text, Icon, HStack, Heading, Image } from "native-base";
+import { VStack, Text, Icon, HStack, Heading, Image, Box } from "native-base";
 import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { AppNavigatorRoutesProps } from "@routes/app.routes";
 
 import BodySvg from "@assets/body.svg";
+import SeriesSvg from "@assets/series.svg";
+import RepetitionsSvg from "@assets/repetitions.svg";
+
+import { Button } from "@components/Button";
 
 export function Exercise() {
   const navigation = useNavigation<AppNavigatorRoutesProps>();
@@ -37,16 +41,34 @@ export function Exercise() {
       </VStack>
 
       <VStack p={8}>
-        <Image 
-        w={'full'}
-        h={80}
-        source={{ uri: "https://www.origym.com.br/midia/remada-unilateral-3.jpg",}}
-        alt="Nome do Exercício"
-        mb={3}
-        resizeMode="cover"
-        rounded={'lg'}
-       
+        <Image
+          w={"full"}
+          h={80}
+          source={{
+            uri: "https://www.origym.com.br/midia/remada-unilateral-3.jpg",
+          }}
+          alt="Nome do Exercício"
+          mb={3}
+          resizeMode="cover"
+          rounded={"lg"}
         />
+        <Box bg={'gray.600'} rounded={'md'} pb={4} px={4}>
+          <HStack alignItems={"center"} justifyContent={"space-around"} mb={6} mt={5}>
+            <HStack>
+              <SeriesSvg />
+              <Text color={"gray.200"} ml={2}>
+                3 séries
+              </Text>
+            </HStack>
+            <HStack>
+              <SeriesSvg />
+              <Text color={"gray.200"} ml={2}>
+                12 repetições
+              </Text>
+            </HStack>
+          </HStack>
+          <Button title="Marcar como realizado"/>
+        </Box>
       </VStack>
     </VStack>
   );
