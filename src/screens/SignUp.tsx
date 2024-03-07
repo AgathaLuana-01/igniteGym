@@ -9,7 +9,7 @@ import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 
 export function SignUp() {
-  const { control } = useForm();
+  const { control, handleSubmit } = useForm();
 
   const navigation = useNavigation();
 
@@ -17,8 +17,8 @@ export function SignUp() {
     navigation.goBack();
   }
 
-  function handleSignUp() {
-
+  function handleSignUp(data: any) {
+    console.log(data);
   }
 
   return (
@@ -89,18 +89,23 @@ export function SignUp() {
 
           <Controller
             control={control}
-            name="passwordConfirm"
+            name="password_confirm"
             render={({ field: { onChange, value } }) => (
               <Input
                 placeholder="Confirme a senha"
                 secureTextEntry={true}
                 onChangeText={onChange}
                 value={value}
+                onSubmitEditing={handleSubmit(handleSignUp)}
+                returnKeyType="send"
               />
             )}
           />
 
-          <Button title="Criar e acessar" onPress={handleSignUp} />
+          <Button
+            title="Criar e acessar"
+            onPress={handleSubmit(handleSignUp)}
+          />
         </Center>
         <Button
           title="Voltar par ao login"
