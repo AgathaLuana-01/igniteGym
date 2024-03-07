@@ -23,7 +23,7 @@ const PHOTO_SIZE = 33;
 export function Profile() {
   const [photoIsLoading, setPhotoIsLoading] = useState(false);
   const [userPhoto, setUserPhoto] = useState(
-    "https://github.com/AgathaLuana-01.png"
+    "https://i.pinimg.com/originals/69/74/4f/69744fdda9a70b32e4f2f3020b687746.jpg"
   );
 
   async function handleUserPhotoSelect() {

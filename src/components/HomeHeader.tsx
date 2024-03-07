@@ -8,7 +8,7 @@ export function HomeHeader() {
   return (
     <HStack bg="gray.600" pt={16} pb={5} px={8} alignItems={"center"}>
       <UserPhoto
-        source={{ uri: "https://github.com/AgathaLuana-01.png" }}
+        source={{ uri: "https://i.pinimg.com/originals/69/74/4f/69744fdda9a70b32e4f2f3020b687746.jpg" }}
         alt="imagem do usuária"
         size={16}
         mr={4}
