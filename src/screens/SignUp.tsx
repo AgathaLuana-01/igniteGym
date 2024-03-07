@@ -13,10 +13,14 @@ type FormDataProps = {
   email: string;
   password: string;
   password_confirm: string;
-}
+};
 
 export function SignUp() {
-  const { control, handleSubmit } = useForm<FormDataProps>();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormDataProps>();
 
   const navigation = useNavigation();
 
@@ -24,8 +28,13 @@ export function SignUp() {
     navigation.goBack();
   }
 
-  function handleSignUp({name, email, password, password_confirm}: FormDataProps) {
-    console.log({name, email, password, password_confirm});
+  function handleSignUp({
+    name,
+    email,
+    password,
+    password_confirm,
+  }: FormDataProps) {
+    console.log({ name, email, password, password_confirm });
   }
 
   return (
@@ -62,14 +71,24 @@ export function SignUp() {
           <Controller
             control={control}
             name="name"
+            rules={{ required: "* Informe o nome" }}
             render={({ field: { onChange, value } }) => (
               <Input placeholder="Nome" onChangeText={onChange} value={value} />
             )}
           />
 
+          <Text color={"white"}>{errors.name?.message}</Text>
+
           <Controller
             control={control}
             name="email"
+            rules={{
+              required: "* Informe o email",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "* E-mail inválido",
+              },
+            }}
             render={({ field: { onChange, value } }) => (
               <Input
                 placeholder="E-mail"
@@ -80,6 +99,7 @@ export function SignUp() {
               />
             )}
           />
+          <Text color={"white"}>{errors.email?.message}</Text>
 
           <Controller
             control={control}
