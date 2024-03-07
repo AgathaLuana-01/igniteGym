@@ -149,7 +149,7 @@ export function SignUp() {
         <Button
           title="Voltar par ao login"
           variant={"outline"}
-          mt={24}
+          mt={5}
           onPress={handleGoBack}
         />
       </VStack>
