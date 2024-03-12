@@ -6,7 +6,6 @@ import {
   Heading,
   Image,
   Box,
-  ScrollView,
   useToast,
 } from "native-base";
 import { TouchableOpacity } from "react-native";
@@ -24,12 +23,14 @@ import { AppError } from "@utils/AppError";
 import { api } from "@services/api";
 import { useEffect, useState } from "react";
 import { ExerciseDTO } from "@dtos/ExerciseDTO";
+import { Loading } from "@components/Loading";
 
 type RouteParamsProps = {
   exerciseId: string;
 };
 
 export function Exercise() {
+  const [isLoading, setIsLoading] = useState(true);
   const [exercise, setExercise] = useState<ExerciseDTO>({} as ExerciseDTO);
   const navigation = useNavigation<AppNavigatorRoutesProps>();
 
@@ -44,7 +45,9 @@ export function Exercise() {
 
   async function fetchExerciseDetails() {
     try {
+      setIsLoading(true);
       const response = await api.get(`/exercises/${exerciseId}`);
+      setExercise(response.data);
     } catch (error) {
       const isAppError = error instanceof AppError;
       const title = isAppError
@@ -52,6 +55,8 @@ export function Exercise() {
         : "Não foi possível carregar os detalhes do exercício. ";
 
       toast.show({ title, placement: "top", bgColor: "red.500" });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -84,7 +89,9 @@ export function Exercise() {
         </HStack>
       </VStack>
 
-      <ScrollView>
+      {isLoading ? (
+        <Loading />
+      ) : (
         <VStack p={8}>
           <Box rounded={"lg"} mb={3} overflow={"hidden"}>
             <Image
@@ -121,7 +128,7 @@ export function Exercise() {
             <Button title="Marcar como realizado" />
           </Box>
         </VStack>
-      </ScrollView>
+      )}
     </VStack>
   );
 }
