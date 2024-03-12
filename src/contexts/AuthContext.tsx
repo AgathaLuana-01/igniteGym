@@ -9,7 +9,6 @@ import {
 
 import { api } from "@services/api";
 import { UserDTO } from "@dtos/UserDTO";
-import { err } from "react-native-svg";
 
 export type AuthContextDataProps = {
   user: UserDTO;
