@@ -10,7 +10,7 @@ import {
 } from "native-base";
 import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { AppNavigatorRoutesProps } from "@routes/app.routes";
 
 import BodySvg from "@assets/body.svg";
@@ -19,38 +19,45 @@ import RepetitionsSvg from "@assets/repetitions.svg";
 
 import { Button } from "@components/Button";
 
+type RouteParamsProps = {
+  exerciseId: string;
+};
+
 export function Exercise() {
   const navigation = useNavigation<AppNavigatorRoutesProps>();
+
+  const route = useRoute();
+  const { exerciseId} = route.params as RouteParamsProps;
+
   function handleGoBack() {
     navigation.goBack();
   }
   return (
     <VStack flex={1}>
-      
-        <VStack px={8} bg={"gray.600"} pt={12}>
-          <TouchableOpacity onPress={handleGoBack}>
-            <Icon as={Feather} name="arrow-left" color={"green.500"} size={6} />
-          </TouchableOpacity>
+      <VStack px={8} bg={"gray.600"} pt={12}>
+        <TouchableOpacity onPress={handleGoBack}>
+          <Icon as={Feather} name="arrow-left" color={"green.500"} size={6} />
+        </TouchableOpacity>
 
-          <HStack
-            justifyContent={"space-between"}
-            mt={4}
-            mb={8}
-            alignItems={"center"}
-          >
-            <Heading color={"gray.100"} fontSize={"lg"} flexShrink={1}>
-              Puxada frontal
-            </Heading>
-            <HStack alignItems={"center"}>
-              <BodySvg />
-              <Text color={"gray.200"} ml={1} textTransform={"capitalize"}>
-                Costas
-              </Text>
-            </HStack>
+        <HStack
+          justifyContent={"space-between"}
+          mt={4}
+          mb={8}
+          alignItems={"center"}
+        >
+          <Heading color={"gray.100"} fontSize={"lg"} flexShrink={1}>
+            Puxada frontal
+          </Heading>
+          <HStack alignItems={"center"}>
+            <BodySvg />
+            <Text color={"gray.200"} ml={1} textTransform={"capitalize"}>
+              Costas
+            </Text>
           </HStack>
-        </VStack>
+        </HStack>
+      </VStack>
 
-        <ScrollView>
+      <ScrollView>
         <VStack p={8}>
           <Image
             w={"full"}
