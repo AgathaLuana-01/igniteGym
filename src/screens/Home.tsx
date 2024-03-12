@@ -11,8 +11,10 @@ import { ExerciseDTO } from "@dtos/ExerciseDTO";
 
 import { AppNavigatorRoutesProps } from "@routes/app.routes";
 import { AppError } from "@utils/AppError";
+import { Loading } from "@components/Loading";
 
 export function Home() {
+  const [isLoading, setIsLoading] = useState(true);
   const [groups, setGroups] = useState<string[]>([]);
 
   const [exercises, setExercises] = useState<ExerciseDTO[]>([]);
@@ -42,6 +44,7 @@ export function Home() {
 
   async function fetchEcercisesByGroups() {
     try {
+      setIsLoading(true);
       const response = await api.get(`/exercises/bygroup/${groupSelected}`);
       setExercises(response.data);
     } catch (error) {
@@ -51,6 +54,8 @@ export function Home() {
         : "Não foi possível carregar os exercícios. ";
 
       toast.show({ title, placement: "top", bgColor: "red.500" });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -89,7 +94,7 @@ export function Home() {
         minH={10}
       />
 
-      <VStack flex={1} px={8}>
+     { isLoading? <Loading/> : <VStack flex={1} px={8}>
         <HStack justifyContent={"space-between"} mb={5}>
           <Heading color={"gray.200"} fontSize={"md"}>
             Exercicios
@@ -109,7 +114,7 @@ export function Home() {
           showsVerticalScrollIndicator={false}
           _contentContainerStyle={{ paddingBottom: 20 }}
         />
-      </VStack>
+      </VStack>}
     </VStack>
   );
 }
