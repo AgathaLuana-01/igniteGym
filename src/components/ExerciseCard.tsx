@@ -2,13 +2,15 @@ import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import { HStack, Heading, Image, VStack, Text, Icon } from "native-base";
 import { Entypo } from "@expo/vector-icons";
 
+import { api } from "@services/api";
+
 import { ExerciseDTO } from "@dtos/ExerciseDTO";
 
 type Props = TouchableOpacityProps & {
   data: ExerciseDTO;
 };
 
-export function ExerciseCard({data, ...rest }: Props) {
+export function ExerciseCard({ data, ...rest }: Props) {
   return (
     <TouchableOpacity {...rest}>
       <HStack
@@ -21,7 +23,7 @@ export function ExerciseCard({data, ...rest }: Props) {
       >
         <Image
           source={{
-            uri: "https://www.origym.com.br/midia/remada-unilateral-3.jpg",
+            uri: `${api.defaults.baseURL}/exercise/thumb/${data.thumb}`,
           }}
           alt="Imagem do exercício"
           w={16}
