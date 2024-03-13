@@ -7,8 +7,9 @@ import {
   Text,
   Skeleton,
   Heading,
+  useToast,
 } from "native-base";
-
+import { Controller, useForm } from "react-hook-form";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 
@@ -17,14 +18,32 @@ import { UserPhoto } from "@components/UserPhoto";
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 import { err } from "react-native-svg";
+import { useAuth } from "@hooks/useAuth";
 
 const PHOTO_SIZE = 33;
+
+type FormDataProps = {
+  name: string;
+  email: string;
+  password: string;
+  old_password: string;
+  confirm_password: string;
+};
 
 export function Profile() {
   const [photoIsLoading, setPhotoIsLoading] = useState(false);
   const [userPhoto, setUserPhoto] = useState(
     "https://i.pinimg.com/originals/69/74/4f/69744fdda9a70b32e4f2f3020b687746.jpg"
   );
+
+  const toast = useToast();
+  const { user } = useAuth();
+  const { control } = useForm<FormDataProps>({
+    defaultValues: {
+      name: user.name,
+      email: user.email,
+    },
+  });
 
   async function handleUserPhotoSelect() {
     setPhotoIsLoading(true);
@@ -89,12 +108,31 @@ export function Profile() {
               Alterar foto
             </Text>
           </TouchableOpacity>
-          <Input placeholder="Nome" bg={"gray.600"} />
-          <Input
-            placeholder="E-mail"
-            value="agathaluana.ads@gmail.com"
-            bg={"gray.600"}
-            isDisabled
+
+          <Controller
+            control={control}
+            name="name"
+            render={({ field: { value, onChange } }) => (
+              <Input
+                bg={"gray.600"}
+                placeholder="Nome"
+                onChangeText={onChange}
+                value={value}
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="email"
+            render={({ field: { value, onChange } }) => (
+              <Input
+                bg={"gray.600"}
+                placeholder="E-mail"
+                onChangeText={onChange}
+                value={value}
+                isDisabled
+              />
+            )}
           />
         </Center>
         <VStack px={10} mt={12} mb={9}>
