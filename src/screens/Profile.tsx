@@ -10,7 +10,7 @@ import {
   useToast,
 } from "native-base";
 import { Controller, useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import * as yup from "yup";
@@ -34,6 +34,16 @@ type FormDataProps = {
 
 const profileSchema = yup.object({
   name: yup.string().required("Informe o nome."),
+  password: yup
+    .string()
+    .min(6, "A senha deve ter pelo menos 6 digitos.")
+    .nullable()
+    .transform((value) => (!!value ? value : null)),
+  confirm_password: yup
+    .string()
+    .nullable()
+    .transform((value) => (!!value ? value : null))
+    .oneOf([yup.ref("password"), null], "A confirmação de senha não confere."),
 });
 
 export function Profile() {
@@ -44,12 +54,16 @@ export function Profile() {
 
   const toast = useToast();
   const { user } = useAuth();
-  const { control, handleSubmit, formState: { errors } } = useForm<FormDataProps>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormDataProps>({
     defaultValues: {
       name: user.name,
       email: user.email,
     },
-    resolver: yupResolver(profileSchema)
+    resolver: yupResolver(profileSchema),
   });
 
   async function handleUserPhotoSelect() {
@@ -187,7 +201,6 @@ export function Profile() {
                 secureTextEntry
                 onChangeText={onChange}
                 errorMessage={errors.confirm_password?.message}
-
               />
             )}
           />
