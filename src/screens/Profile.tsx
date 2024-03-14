@@ -16,13 +16,16 @@ import * as FileSystem from "expo-file-system";
 import * as yup from "yup";
 
 import { api } from "@services/api";
+import { AppError } from "@utils/AppError";
+
+import { useAuth } from "@hooks/useAuth";
+
+import defaultUserPhotoImg from "@assets/userPhotoDefault.png";
 
 import { ScreenHeader } from "@components/ScreenHeader";
 import { UserPhoto } from "@components/UserPhoto";
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
-import { useAuth } from "@hooks/useAuth";
-import { AppError } from "@utils/AppError";
 
 const PHOTO_SIZE = 33;
 
@@ -59,9 +62,7 @@ const profileSchema = yup.object({
 export function Profile() {
   const [isUpdating, setIsUpdating] = useState(false);
   const [photoIsLoading, setPhotoIsLoading] = useState(false);
-  const [userPhoto, setUserPhoto] = useState(
-    "https://i.pinimg.com/originals/69/74/4f/69744fdda9a70b32e4f2f3020b687746.jpg"
-  );
+  const [userPhoto, setUserPhoto] = useState();
 
   const toast = useToast();
   const { user, updateUserProfile } = useAuth();
@@ -180,7 +181,11 @@ export function Profile() {
             />
           ) : (
             <UserPhoto
-              source={{ uri: userPhoto }}
+              source={
+                user.avatar
+                  ? { uri: `${api.defaults.baseURL}/avatar/${user.avatar}` }
+                  : defaultUserPhotoImg
+              }
               alt="Foto do usuário"
               size={PHOTO_SIZE}
             />
