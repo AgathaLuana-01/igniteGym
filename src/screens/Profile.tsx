@@ -100,7 +100,14 @@ export function Profile() {
         if(photoInfo.size && (photoInfo.size  / 1024 / 1024 ) > 5){
           return Alert.alert('Essa imagem é muito grande. Escolha uma de até 5MB.'); 
         }*/
-        setUserPhoto(photoSelected.assets[0].uri);
+        // setUserPhoto(photoSelected.assets[0].uri);
+        const fileExtension = photoSelected.assets[0].uri.split(".").pop();
+        const photoFile = {
+          name: `${user.name}.${fileExtension}`.toLowerCase(),
+          uri: photoSelected.assets[0].uri,
+          type:`${photoSelected.assets[0].type}/${fileExtension}`
+        };
+        console.log(photoFile);
       }
     } catch (error) {
       console.log(error);
